@@ -1,2 +1,2 @@
 # eke
-a partir de SLA calcula as velocidade geostróficas e em seguida calcula EKE
+a partir de SLA calcula as velocidades geostróficas e em seguida calcula EKE
