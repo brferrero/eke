@@ -1,0 +1,23 @@
+!
+! calcula o EKE a partir de dados de SSH
+!
+
+define symbol sla = $1%ssh%
+define symbol gref `($sla)[d=1,l=1],return=grid`
+
+let pi=4*atan(1)
+let omega = 2*pi/86400
+let deg2rad = pi/180
+let/title="Coriolis Parameter" fc = 2*omega*sin(y[g=($gref)]*deg2rad)
+let/title="Gravitational Acceleration" grav = 9.8
+
+! exclui:  -3 < lat < 3 
+! sobre as derivadas em x e y:
+! Ferret attempts to use standardized units for the grid coordinates. 
+! If the underlying axis is in a known unit of length Ferret converts grid box lengths to meters
+
+let/title="Geostrophic u"/units="cm/s" ug = (if abs(y[gy=($sla)]) gt 3.0 then (-1*(grav/fc)*($sla)[y=@ddc]) else 1/0)*100
+let/title="Geostrophic v"/units="cm/s" vg = (if abs(y[gy=($sla)]) gt 3.0 then ((grav/fc)*($sla)[x=@ddc])    else 1/0)*100
+
+let/title="Eddy Kinetic Energy"/units="(cm^2/s^2)" eke = 0.5*(ug*ug) + 0.5*(vg*vg)
+
