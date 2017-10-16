@@ -1,0 +1,14 @@
+set mem/size=1000
+
+define symbol uo = $1%uo%
+define symbol vo = $2%vo%
+
+let pi=acos(-1)
+define symbol gref `temp[d=1,l=1],return=grid` 
+
+let/title="box zonal length (m)"        xdist = xbox[g=($gref)]*111.12*1e3*(cos(y[g=($gref)]*pi/180))
+let/title="box meridional length (m)"   ydist = ybox[g=($gref)]*111.12*1e3*(x[g=($gref)]/x[g=($gref)])
+
+let/title="Zonal Transport (Sv)"        momx = ydist*zbox[g=($gref)]*($uo)*1e-6
+let/title="Meridional Transport (Sv)"   momy = xdist*zbox[g=($gref)]*($vo)*1e-6
+let/title="Transport Module (Sv)"       mom  = (momx^2+momy^2)^0.5

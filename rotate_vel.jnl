@@ -1,0 +1,14 @@
+!
+! rotation matrix
+!
+
+define symbol uvel  = $1%uo%
+define symbol vvel  = $2%vo%
+define symbol theta = $3%0%
+
+!deg to rad
+let pih = acos(-1)
+let theta1 = ($theta)*pih/180
+
+let/title="($uvel): rotation ($theta)" urot = ($uvel)*(cos(theta1)) - ($vvel)*(sin(theta1))
+let/title="($vvel): rotation ($theta)" vrot = ($uvel)*(sin(theta1)) + ($vvel)*(cos(theta1))
