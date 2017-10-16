@@ -1,0 +1,13 @@
+!
+! SET MODE METAFILE
+!
+
+DEFINE SYMBOL fout = $1%caca.png%
+DEFINE SYMBOL fres = $2%200%
+DEFINE SYMBOL trns = $3%off%
+
+sp  Fprint -p portrait -o tmp_metaps.ps metafile.plt
+sp convert -density ($fres) -alpha ($trns) tmp_metaps.ps ($fout)
+sp rm metafile*plt
+!sp rm metafile*plt.*
+sp rm tmp_metaps.ps
